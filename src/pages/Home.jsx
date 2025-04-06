@@ -27,6 +27,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion"
 import { Link } from "lucide-react"
 import { BrowserRouter as Router} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
   const [walletAddress, setWalletAddress] = useState(null)
@@ -36,6 +37,10 @@ export default function Home() {
   const [myTickets, setMyTickets] = useState([])
   const videoRef = useRef(null)
   const router = Router
+  const navigate = useNavigate();
+    const handleBookTicket=(event)=>{
+      navigate("/buy");
+    }
 
   const handleConnectWallet = async () => {
     setLoading(true)
@@ -55,8 +60,9 @@ export default function Home() {
   }
 
   const handleBuyNow = (event) => {
-    setSelectedEvent(event)
-    router.push("/buy-ticket")
+    
+    navigate("/buy");
+    // router.push("/buy-ticket")
     // Store the selected event in localStorage for the buy-ticket page
     localStorage.setItem("selectedEvent", JSON.stringify(event))
   }
@@ -212,7 +218,7 @@ export default function Home() {
       title: "Avengers: Endgame",
       type: "Movie",
       date: "Apr 15, 2025",
-      image: "/placeholder.svg?height=400&width=300",
+      image: "https://images.ctfassets.net/3sjsytt3tkv5/48dw0Wqg1t7RMqLrtodjqL/d72b35dae2516fa64803f4de2ab8e30f/Avengers-_Endgame_-_Header_Image.jpeg",
       rating: 4.8,
     },
     {
@@ -220,7 +226,7 @@ export default function Home() {
       title: "Taylor Swift: Eras Tour",
       type: "Concert",
       date: "May 10, 2025",
-      image: "/placeholder.svg?height=400&width=300",
+      image: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQwmpQf7VzI5WK8l7iBuvcA-FHWF5KQ-i70MjDo-9aHk5NQGV8R98cNbZJOwxH6GU_aeH9R",
       rating: 4.9,
     },
     {
@@ -228,7 +234,7 @@ export default function Home() {
       title: "NBA Finals 2025",
       type: "Sports",
       date: "Jun 5, 2025",
-      image: "/placeholder.svg?height=400&width=300",
+      image: "https://cdn.nba.com/manage/2025/03/2025-finals-logo-white.jpg",
       rating: 4.7,
     },
     {
@@ -236,7 +242,7 @@ export default function Home() {
       title: "Tech Summit 2025",
       type: "Expo",
       date: "Jul 20, 2025",
-      image: "/placeholder.svg?height=400&width=300",
+      image: "https://dublintechsummit.tech/wp-content/uploads/sites/7/2025/01/Dublin-Tech-Summit-2025-2.jpg",
       rating: 4.6,
     },
   ]
@@ -404,7 +410,7 @@ export default function Home() {
                   </div>
                 </motion.div>
                 {myTickets.length > 0 && (
-                  <Link href="/my-tickets">
+                  <Link href="/mytickets">
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -618,7 +624,7 @@ export default function Home() {
             </motion.div>
 
             {/* Category Content */}
-            <AnimatePresence mode="wait">
+            <AnimatePresence mode="sync">
               <motion.div
                 key={activeCategory}
                 initial={{ opacity: 0, y: 20 }}

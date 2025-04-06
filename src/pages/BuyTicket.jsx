@@ -6,8 +6,13 @@ import { ethers } from "ethers"
 import { motion } from "framer-motion"
 import { ArrowLeft, Ticket, Wallet, Check, AlertCircle, Loader2 } from "lucide-react"
 import { Link } from "lucide-react"
+import { useLocation } from "react-router-dom"
+
 
 const BuyTicket = ({ selectedEvent, onPurchaseComplete }) => {
+
+  const location = useLocation();
+  const eventData = location.state;
   const [loading, setLoading] = useState(false)
   const [status, setStatus] = useState("")
   const [amount, setAmount] = useState("0.1")
